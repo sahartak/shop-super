@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/shop-name', 'HomeController@saveShopName');
+Route::get('/plans', 'HomeController@plans')->name('showPlans');
+Route::get('/subscribe-plan/{plan}', 'HomeController@subscribePlan')->name('subscribePlan');
+Route::get('/pay-plan/{shop}', 'HomeController@payPlan')->name('payPlan');
