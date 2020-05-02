@@ -64,7 +64,7 @@ class HomeController extends Controller
     {
         if ($plan) {
             $user = Auth::user();
-            $shop = $user->userShops()->orderBy('created_at','desc')->first();
+            $shop = $user->userShop;
             $shop->plan = $plan;
             $shop->save();
             return view('user.pay', compact('shop'));
@@ -81,7 +81,7 @@ class HomeController extends Controller
             if ($shop) {
                 $shop->is_active = 1;
                 $shop->save();
-                return redirect()->route('home');
+                return redirect()->route('user');
             }
         }
 

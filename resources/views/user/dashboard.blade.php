@@ -15,7 +15,9 @@
                         @endif
                        <form method="post" action="/shop-name">
                            @csrf
+                           <input type="text" value="https://" readonly class="no-border">
                            <input type="text" name="shop_name">
+                           <input type="text" value=".shop-super.loc" readonly class="no-border">
                            <input type="submit">
 
                        </form>

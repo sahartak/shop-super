@@ -10,6 +10,26 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const USER_ROLE_ADMIN = 1;
+    const USER_ROLE_USER = 0;
+
+    const USER_STATUS_ACTIVE = 1;
+    const USER_STATUS_INACTIVE = 0;
+    const USER_STATUS_DELETED = 2;
+
+    public static $roles =
+        [
+            self::USER_ROLE_USER => 'User',
+            self::USER_ROLE_ADMIN => 'Admin',
+        ];
+
+    public static $statuses =
+        [
+            self::USER_STATUS_ACTIVE => 'Active',
+            self::USER_STATUS_INACTIVE => 'Inactive',
+            self::USER_STATUS_DELETED => 'Deleted',
+        ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -37,8 +57,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function userShops()
+    public function userShop()
     {
-        return $this->hasMany(UserShop::class);
+        return $this->hasOne(UserShop::class);
+    }
+
+    public function roleName()
+    {
+       return self::$roles[$this->role];
+    }
+
+    public function statusName()
+    {
+        return self::$statuses[$this->status];
     }
 }

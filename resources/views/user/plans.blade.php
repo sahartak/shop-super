@@ -1,20 +1,42 @@
-@extends('layouts.app')
-
+@extends('layouts.user-dashboard',['title' => 'Plans'])
+<?php
+use Illuminate\Support\Facades\Auth;
+?>
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
+
                 <div class="card">
-                    <div class="card-header">Dashboard</div>
-
+                    <h5 class="card-header">Select plan</h5>
                     <div class="card-body">
-                        Select plan
 
-                        <a href="{{route('subscribePlan', 10)}}" class="btn"> Plan 1</a>
-                        <a href="{{route('subscribePlan', 20)}}" class="btn"> Plan 2</a>
-                        <a href="{{route('subscribePlan', 30)}}" class="btn"> Plan 3</a>
+                        <a class="btn btn-primary" href="{{route('subscribePlan', 10)}}" role="button">
+                            @if(Auth::user()->userShop->plan == 10)
+                                Selected plan
+                            @else
+                                Plan 1
+                            @endif
+                        </a>
+                        <a class="btn btn-primary" href="{{route('subscribePlan', 20)}}" role="button">
+                            @if(Auth::user()->userShop->plan == 20)
+                                Selected plan
+                            @else
+                                Plan 2
+                            @endif
+
+                        </a>
+                        <a class="btn btn-primary" href="{{route('subscribePlan', 30)}}" role="button">
+                            @if(Auth::user()->userShop->plan == 10)
+                                Selected plan
+                            @else
+                                Plan 3
+                            @endif
+                        </a>
+
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
