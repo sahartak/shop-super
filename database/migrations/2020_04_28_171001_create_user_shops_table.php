@@ -20,7 +20,7 @@ class CreateUserShopsTable extends Migration
             $table->smallInteger('plan');
             $table->boolean('is_active');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
         });
     }
 
