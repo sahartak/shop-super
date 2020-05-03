@@ -39,10 +39,9 @@ class UserShop extends Model
     {
         $shopDb = DB::statement("CREATE DATABASE `{$dbName}` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         if ($shopDb) {
-            $currentDb = env('DB_DATABASE');
-            DB::statement("CREATE USER '{$dbName}'@'localhost' IDENTIFIED BY '{$dbPassword}' ");
-            DB::statement("GRANT ALL PRIVILEGES ON {$dbName} . * TO '{$dbName}'@'localhost'");
-            DB::statement("GRANT SELECT ON {$currentDb} . * TO '{$dbName}'@'localhost'");
+            //DB::statement("CREATE USER '{$dbName}'@'localhost' IDENTIFIED BY '{$dbPassword}' ");
+            //DB::statement("GRANT ALL PRIVILEGES ON {$dbName} . * TO '{$dbName}'@'localhost'");
+           // DB::statement("GRANT SELECT ON {$currentDb} . * TO '{$dbName}'@'localhost'");
             $mysqlDumpPath = base_path().'/database/shoptop.sql';
             exec("mysql -u {$dbName} --password={$dbPassword} {$dbName} < {$mysqlDumpPath}");
             return true;
@@ -69,7 +68,7 @@ class UserShop extends Model
     public function makeSetup()
     {
         $dbName = 'shop_'.$this->id.'_'.time();
-        $dbPassword = Str::random(11);
+        $dbPassword = env('DB_PASSWORD');
 
         if(!$this->createDatabase($dbName, $dbPassword)) {
             throw new \Exception('Db Error');
@@ -85,7 +84,7 @@ class UserShop extends Model
             'SHOP_DOMAIN' => $this->shop_name,
             'APP_URL' => $http.$this->shop_name.'.'.env('SHOP_DOMAIN'),
             'DB_DATABASE' => $dbName,
-            'DB_USERNAME' => $dbName,
+            'DB_USERNAME' => env('DB_USERNAME'),
             'DB_PASSWORD' => $dbPassword,
             'APP_KEY' => $key
         ];
