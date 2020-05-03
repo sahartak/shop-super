@@ -14,7 +14,7 @@ class AddTitleToShopTable extends Migration
     public function up()
     {
         Schema::table('user_shops', function (Blueprint $table) {
-            $table->string('shop_title')->default(null);
+            $table->string('shop_title')->nullable();
         });
     }
 
