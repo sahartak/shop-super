@@ -44,7 +44,7 @@ class UserShop extends Model
            // DB::statement("GRANT SELECT ON {$currentDb} . * TO '{$dbName}'@'localhost'");
             $mysqlDumpPath = base_path().'/database/shoptop.sql';
             $dbUSer = env('DB_USERNAME');
-            exec("mysql -u {$dbName} --password={$dbPassword} {$dbUSer} < {$mysqlDumpPath}");
+            echo exec("mysql -u {$dbUSer} --password={$dbPassword} {$dbName} < {$mysqlDumpPath}");
             return true;
         }
         return false;
