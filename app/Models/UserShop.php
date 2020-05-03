@@ -43,7 +43,8 @@ class UserShop extends Model
             //DB::statement("GRANT ALL PRIVILEGES ON {$dbName} . * TO '{$dbName}'@'localhost'");
            // DB::statement("GRANT SELECT ON {$currentDb} . * TO '{$dbName}'@'localhost'");
             $mysqlDumpPath = base_path().'/database/shoptop.sql';
-            exec("mysql -u {$dbName} --password={$dbPassword} {$dbName} < {$mysqlDumpPath}");
+            $dbUSer = env('DB_USERNAME');
+            exec("mysql -u {$dbName} --password={$dbPassword} {$dbUSer} < {$mysqlDumpPath}");
             return true;
         }
         return false;
