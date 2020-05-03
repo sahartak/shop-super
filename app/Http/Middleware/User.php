@@ -32,6 +32,7 @@ class User
             return $next($request);
         }
         else {
+
             if (!Auth::user()->userShop->plan) {
                 return redirect()->route('showPlans');
             }
@@ -39,7 +40,6 @@ class User
                 if (!Auth::user()->userShop->is_active) {
                     return redirect('/subscribe-plan/'.Auth::user()->userShop->plan);
                 }
-
 
                 if($request->route()->getName() == 'home') {
                     return redirect()->route('user');

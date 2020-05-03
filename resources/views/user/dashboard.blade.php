@@ -5,20 +5,24 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Dashboard</div>
+                    <div class="card-header">Put your shop subdomain</div>
 
-                    <div class="card-body">
+                    <p class="card-body">
                         @if (session('errorMessage'))
                             <div class="alert alert-success">
                                 {{ session('errorMessage') }}
                             </div>
                         @endif
-                       <form method="post" action="/shop-name">
+                       <form method="post" action="/shop-name" class="text-center">
                            @csrf
-                           <input type="text" value="https://" readonly class="no-border">
-                           <input type="text" name="shop_name">
-                           <input type="text" value=".shop-super.loc" readonly class="no-border">
-                           <input type="submit">
+                           <p>
+                               https://
+                               <input type="text" name="shop_name" style="width: 250px" required> .{{env('SHOP_DOMAIN')}}
+                           </p>
+                           <p>
+                               <br/>
+                               <button type="submit">Create shop</button>
+                           </div>
 
                        </form>
                     </div>
