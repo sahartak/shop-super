@@ -20,10 +20,7 @@ use Illuminate\Support\Facades\Auth;
                         <div class="card-body">
                             <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
                             <ul class="list-unstyled mt-3 mb-4">
-                                <li>10 users included</li>
-                                <li>2 GB of storage</li>
-                                <li>Email support</li>
-                                <li>Help center access</li>
+                                <li>1 shelf in your store</li>
                             </ul>
                             <a href="{{route('subscribePlan', 10)}}" class="btn btn-lg btn-block btn-outline-primary">Subscribe</a>
                         </div>
@@ -33,12 +30,10 @@ use Illuminate\Support\Facades\Auth;
                             <h4 class="my-0 font-weight-normal">Plan 2</h4>
                         </div>
                         <div class="card-body">
-                            <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ mo</small></h1>
+                            <h1 class="card-title pricing-card-title">$50 <small class="text-muted">/ mo</small></h1>
                             <ul class="list-unstyled mt-3 mb-4">
-                                <li>20 users included</li>
-                                <li>10 GB of storage</li>
-                                <li>Priority email support</li>
-                                <li>Help center access</li>
+                                <li> Up to 10 shelves in your store </li>
+
                             </ul>
                             <a href="{{route('subscribePlan', 20)}}" class="btn btn-lg btn-block btn-outline-primary">Subscribe</a>
                         </div>
@@ -48,12 +43,9 @@ use Illuminate\Support\Facades\Auth;
                             <h4 class="my-0 font-weight-normal">Plan 3</h4>
                         </div>
                         <div class="card-body">
-                            <h1 class="card-title pricing-card-title">$29 <small class="text-muted">/ mo</small></h1>
+                            <h1 class="card-title pricing-card-title">$100 <small class="text-muted">/ mo</small></h1>
                             <ul class="list-unstyled mt-3 mb-4">
-                                <li>30 users included</li>
-                                <li>15 GB of storage</li>
-                                <li>Phone and email support</li>
-                                <li>Help center access</li>
+                                <li>More than 10 shelves in your store </li>
                             </ul>
                             <a href="{{route('subscribePlan', 30)}}" class="btn btn-lg btn-block btn-outline-primary">Subscribe</a>
                         </div>

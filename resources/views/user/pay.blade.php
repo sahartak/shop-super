@@ -28,6 +28,8 @@
 
                         <a href="{{route('payPlan', $shop)}}" class="btn btn-primary btn-rounded">Pay<i class="far fa-gem ml-1"></i></a>
 
+                        <a href="{{route('cancelPlan', $shop)}}" class="btn btn-dark btn-rounded">Cancel<i class="far fa-gem ml-1"></i></a>
+
                     </div>
                     </div>
                 </div>

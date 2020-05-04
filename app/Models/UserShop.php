@@ -22,6 +22,17 @@ class UserShop extends Model
             self::PLAN_PANDING => 'Pending'
         ];
 
+    const SHOP_PLAN_FREE= 10;
+    const SHOP_PLAN_BUSINESS = 20;
+    const SHOP_PLAN_PREMIUM = 30;
+
+    public static $plans =
+        [
+            self::SHOP_PLAN_FREE => 'Free',
+            self::SHOP_PLAN_BUSINESS => 'Business',
+            self::SHOP_PLAN_PREMIUM => 'Premium'
+        ];
+
     protected $guarded = [];
 
     public function user()

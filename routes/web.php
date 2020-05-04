@@ -28,3 +28,7 @@ Route::get('/pay-plan/{shop}', 'HomeController@payPlan')->name('payPlan');
 Route::get('/admin','AdminController@index')->name('admin')->middleware('admin');
 Route::get('/users', 'AdminController@users')->name('show-users')->middleware('admin');
 Route::get('/user', 'UserController@index')->name('user')->middleware('user');
+Route::get('/cancel-plan/{shop}', 'HomeController@cancelPlan')->name('cancelPlan');
+Route::get('/user/edit/{id}', 'UserController@edit')->name('user-edit');
+Route::get('/user/delete/{id}', 'UserController@destroy')->name('user-delete');
+Route::patch('/user/update/{id}', 'UserController@update')->name('user-update');

@@ -21,6 +21,7 @@ class User extends Authenticatable
     const USER_STATUS_INACTIVE = 0;
     const USER_STATUS_DELETED = 2;
 
+
     public static $roles =
         [
             self::USER_ROLE_USER => 'User',
@@ -33,6 +34,7 @@ class User extends Authenticatable
             self::USER_STATUS_INACTIVE => 'Inactive',
             self::USER_STATUS_DELETED => 'Deleted',
         ];
+
 
     /**
      * The attributes that are mass assignable.

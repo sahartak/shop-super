@@ -87,4 +87,19 @@ class HomeController extends Controller
 
         return back();
     }
+
+    public function cancelPlan($shop)
+    {
+        if ($shop) {
+            $shop = UserShop::find($shop);
+            if ($shop) {
+                $shop->plan = 0;
+                $shop->is_active = 0;
+                $shop->save();
+                return redirect()->route('showPlans');
+            }
+        }
+
+        return back();
+    }
 }
