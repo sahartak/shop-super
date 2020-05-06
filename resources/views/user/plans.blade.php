@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Auth;
                             <ul class="list-unstyled mt-3 mb-4">
                                 <li>1 shelf in your store</li>
                             </ul>
-                            <a href="{{route('subscribePlan', 10)}}" class="btn btn-lg btn-block btn-outline-primary">Subscribe</a>
+                            <a href="{{route('subscribePlan', \App\Models\UserShop::SHOP_PLAN_FREE)}}" class="btn btn-lg btn-block btn-outline-primary">Subscribe</a>
                         </div>
                     </div>
                     <div class="card mb-4 box-shadow">
@@ -35,7 +35,7 @@ use Illuminate\Support\Facades\Auth;
                                 <li> Up to 10 shelves in your store </li>
 
                             </ul>
-                            <a href="{{route('subscribePlan', 20)}}" class="btn btn-lg btn-block btn-outline-primary">Subscribe</a>
+                            <a href="{{route('subscribePlan', \App\Models\UserShop::SHOP_PLAN_BUSINESS)}}" class="btn btn-lg btn-block btn-outline-primary">Subscribe</a>
                         </div>
                     </div>
                     <div class="card mb-4 box-shadow">
@@ -47,7 +47,7 @@ use Illuminate\Support\Facades\Auth;
                             <ul class="list-unstyled mt-3 mb-4">
                                 <li>More than 10 shelves in your store </li>
                             </ul>
-                            <a href="{{route('subscribePlan', 30)}}" class="btn btn-lg btn-block btn-outline-primary">Subscribe</a>
+                            <a href="{{route('subscribePlan', \App\Models\UserShop::SHOP_PLAN_PREMIUM)}}" class="btn btn-lg btn-block btn-outline-primary">Subscribe</a>
                         </div>
                     </div>
                 </div>
