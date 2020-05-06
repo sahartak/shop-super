@@ -13,18 +13,18 @@ class UserShop extends Model
 {
     const PLAN_ACTIVE = 1;
     const PLAN_INACTIVE = 0;
-    const PLAN_PANDING = 2;
+    const PLAN_PENDING = 2;
 
     public static $planStatuses =
         [
             self::PLAN_INACTIVE => 'Inactive',
             self::PLAN_ACTIVE => 'Active',
-            self::PLAN_PANDING => 'Pending'
+            self::PLAN_PENDING => 'Pending'
         ];
 
-    const SHOP_PLAN_FREE= 10;
-    const SHOP_PLAN_BUSINESS = 20;
-    const SHOP_PLAN_PREMIUM = 30;
+    const SHOP_PLAN_FREE = 1;
+    const SHOP_PLAN_BUSINESS = 2;
+    const SHOP_PLAN_PREMIUM = 3;
 
     public static $plans =
         [
