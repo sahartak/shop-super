@@ -13,7 +13,7 @@ use Laravel\Cashier\Billable;
  */
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Billable;
 
     const USER_ROLE_ADMIN = 1;
     const USER_ROLE_USER = 0;
@@ -21,6 +21,24 @@ class User extends Authenticatable
     const USER_STATUS_ACTIVE = 1;
     const USER_STATUS_INACTIVE = 0;
     const USER_STATUS_DELETED = 2;
+
+    const STANDARD_PRODUCT = 'Standard';
+    const PREMIUM_PRODUCT = 'Premium';
+
+    const SUBSCRIPTION_STANDARD = [
+        'amount' => '1000',
+        'interval' => 'month',
+        'currency' => 'usd',
+        //'product' => self::STANDARD_PRODUCT,
+        'id' => 'standard',
+    ];
+    const SUBSCRIPTION_PREMIUM = [
+        'amount' => '10000',
+        'interval' => 'month',
+        'currency' => 'usd',
+        //'product' => self::PREMIUM_PRODUCT,
+        'id' => 'premium',
+    ];
 
 
     public static $roles =
@@ -71,7 +89,7 @@ class User extends Authenticatable
 
     public function roleName()
     {
-       return self::$roles[$this->role];
+        return self::$roles[$this->role];
     }
 
     public function statusName()

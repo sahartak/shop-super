@@ -31,7 +31,10 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        /* @var User $user*/
         $shop = $user->userShop;
+
+
 
 
 

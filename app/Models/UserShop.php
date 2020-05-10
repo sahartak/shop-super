@@ -37,6 +37,13 @@ class UserShop extends Model
             self::SHOP_PLAN_PREMIUM => 'Premium'
         ];
 
+    public static $planSubscriptions =
+        [
+            self::SHOP_PLAN_FREE => '',
+            self::SHOP_PLAN_BUSINESS => User::STANDARD_PRODUCT,
+            self::SHOP_PLAN_PREMIUM => User::PREMIUM_PRODUCT
+        ];
+
     protected $guarded = [];
 
     public function user()

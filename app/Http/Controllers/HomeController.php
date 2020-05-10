@@ -93,7 +93,7 @@ class HomeController extends Controller
             if ($shop) {
                 $shop->is_active = 1;
                 $shop->save();
-                return redirect()->route('user');
+                return redirect()->route('stripe-payment');
             }
         }
 
