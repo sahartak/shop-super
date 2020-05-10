@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewUser;
 use App\Models\UserShop;
+use App\Rules\Hostname;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
@@ -31,15 +34,23 @@ class HomeController extends Controller
 
     public function saveShopName(Request $request)
     {
+        $request->validate([
+            'shop_name' => ['required', 'string','min:5', new Hostname],
+        ]);
+
         $shopName = $request->get('shop_name');
         $shopName = str_replace('.'.str_replace('http://', '',env("APP_URL")),'',$shopName);
 
+        $user = Auth::user();
         if ($shopName) {
 
             if (UserShop::where('shop_name', $shopName)->first()){
                 return Redirect::to('home')->with('errorMessage', 'Shop name already exists!');
             }
-            $user = Auth::user();
+            if (UserShop::where([['user_id','=',$user->id], ['is_active','=',1]])->first()){
+                return Redirect::to('home')->with('errorMessage', 'Sorry, you already have a shop!');
+            }
+
             $userShop = UserShop::create([
                 'user_id' => $user->id,
                 'shop_name' => $shopName,
@@ -48,6 +59,7 @@ class HomeController extends Controller
             ]);
 
             if ($userShop) {
+                Mail::to($user->email)->send(new NewUser($userShop));
                 return redirect()->route('showPlans');
             }
         }

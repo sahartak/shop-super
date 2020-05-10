@@ -8,9 +8,13 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
+use Laravel\Cashier\Billable;
 
 class UserShop extends Model
 {
+
+    use Billable;
+
     const PLAN_ACTIVE = 1;
     const PLAN_INACTIVE = 0;
     const PLAN_PENDING = 2;
