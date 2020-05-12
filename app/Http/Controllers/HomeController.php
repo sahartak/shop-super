@@ -78,6 +78,7 @@ class HomeController extends Controller
             $user = Auth::user();
             $shop = $user->userShop;
             $shop->plan = $plan;
+            $shop->is_active = 0;
             $shop->save();
             return view('user.pay', compact('shop'));
         }
@@ -87,17 +88,7 @@ class HomeController extends Controller
 
     public function payPlan($shop)
     {
-
-        if ($shop) {
-            $shop = UserShop::find($shop);
-            if ($shop) {
-                $shop->is_active = 1;
-                $shop->save();
-                return redirect()->route('stripe-payment');
-            }
-        }
-
-        return back();
+        return redirect()->route('stripe-payment');
     }
 
     public function cancelPlan($shop)

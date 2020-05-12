@@ -1,4 +1,7 @@
 @extends('layouts.app',['title' => 'Plans'])
+@section('parentJs')
+    @parent
+@stop
 <?php
 use Illuminate\Support\Facades\Auth;
 ?>

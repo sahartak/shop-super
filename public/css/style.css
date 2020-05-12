@@ -1,3 +1,16 @@
 .no-border,.no-border:focus {
     border: none;
 }
+p.success-message {
+    text-align: center;
+    padding: 20px;
+    color: green;
+    font-size: 25px;
+}
+
+p.error-message {
+    text-align: center;
+    padding: 20px;
+    color: red;
+    font-size: 25px;
+}

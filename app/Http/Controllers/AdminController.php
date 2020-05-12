@@ -15,7 +15,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.admin');
+        return redirect()->route('show-users');
     }
 
     public function users()
@@ -24,6 +24,7 @@ class AdminController extends Controller
             ->with('userShop')
             ->get()
             ->all();
+
 
         return view('admin.users', compact('users'));
     }

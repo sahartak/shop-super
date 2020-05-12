@@ -33,3 +33,4 @@ Route::get('/user/edit/{id}', 'UserController@edit')->name('user-edit');
 Route::get('/user/delete/{id}', 'UserController@destroy')->name('user-delete');
 Route::patch('/user/update/{id}', 'UserController@update')->name('user-update');
 Route::get('/stripe-payment', 'PaymentController@pay')->name('stripe-payment');
+Route::post('/make-payment', 'PaymentController@makePayment')->name('make-payment');

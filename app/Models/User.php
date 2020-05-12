@@ -25,19 +25,22 @@ class User extends Authenticatable
     const STANDARD_PRODUCT = 'Standard';
     const PREMIUM_PRODUCT = 'Premium';
 
+    const STRIPE_PLAN_STANDARD = 'standard';
+    const STRIPE_PLAN_PREMIUM = 'premium';
+
     const SUBSCRIPTION_STANDARD = [
         'amount' => '1000',
         'interval' => 'month',
         'currency' => 'usd',
         //'product' => self::STANDARD_PRODUCT,
-        'id' => 'standard',
+        'id' => self::STRIPE_PLAN_STANDARD,
     ];
     const SUBSCRIPTION_PREMIUM = [
         'amount' => '10000',
         'interval' => 'month',
         'currency' => 'usd',
         //'product' => self::PREMIUM_PRODUCT,
-        'id' => 'premium',
+        'id' => self::STRIPE_PLAN_PREMIUM,
     ];
 
 
@@ -96,4 +99,11 @@ class User extends Authenticatable
     {
         return self::$statuses[$this->status];
     }
+
+    public function subscriptionInfo()
+    {
+
+        return false;
+    }
+
 }

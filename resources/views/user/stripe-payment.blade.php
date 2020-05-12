@@ -1,5 +1,7 @@
 @extends('layouts.app',['title' => 'Pay'])
+@section('parentJs')
 
+@stop
 <style>
     input,
     .StripeElement {
@@ -48,14 +50,17 @@
                         <label for="card-holder-name">Card holder</label>
                         <input id="card-holder-name" type="text" class="form-control">
                     </div>
+                    @csrf
+
 
 
                     <!-- Stripe Elements Placeholder -->
                     <div class="form-group">
-                    <div id="card-element"></div>
+                    <div id="card-element">
+                    </div>
                     </div>
                     <div class="form-group">
-                    <button id="card-button" data-secret="{{ $intent->client_secret }}" type="submit" class="btn btn-primary">Pay</button>
+                    <button id="card-button" data-secret="{{ $intent->client_secret }}" class="btn btn-primary">Pay</button>
 
                     </div>
                 </div>
@@ -67,7 +72,6 @@
 @endsection
 
 @section('scripts')
-
     <script src="https://js.stripe.com/v3/"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -88,8 +92,6 @@
 
         console.log(cardButton);
         cardButton.addEventListener('click', async (e) => {
-            console.log(55555555555555);
-            console.log(e);
             const { setupIntent, error } = await stripe.confirmCardSetup(
             clientSecret, {
                 payment_method: {
@@ -98,13 +100,37 @@
                 }
             });
 
-            console.log('dddd');
             if (error) {
                 console.log(error);
                 // Display "error.message" to the user...
             } else {
-                console.log(setupIntent);
-                // The card has been verified successfully...
+                console.log(setupIntent.payment_method);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                    }
+                });
+
+                $.ajax({
+                    type: "post",
+                    data: {payment_method: setupIntent.payment_method},
+                    url: "/make-payment",
+                    success: function (data) {
+                        if(data.status == 1) {
+                            $('.payment-form').parent().remove();
+                            $(".card").append(
+                                '<p class="success-message">You have subscribed successfully! </p>' +
+                            '<a class="btn btn-primary" href="{{ route('user') }}"> Go to dashboard </a>'
+                            );
+                        } else {
+                            $(".card").append(
+                                '<p class="error-message">data.status.message</p>'
+                            );
+                        }
+                    }
+                });
+
             }
         });
 
