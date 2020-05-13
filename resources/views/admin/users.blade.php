@@ -11,7 +11,7 @@
         @endif
     </div>
 
-    <table class="table">
+    <table class="table data_table">
         <thead>
         <tr>
             <th scope="col">#</th>

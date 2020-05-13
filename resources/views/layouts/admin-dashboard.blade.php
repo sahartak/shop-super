@@ -16,6 +16,8 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- overlayScrollbars -->
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="{{ asset('/dist/css/adminlte.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
     <!-- Google Font: Source Sans Pro -->
@@ -146,7 +148,11 @@
 
 <script src="{{ asset('/dist/js/adminlte.min.js') }}" defer></script>
 <!-- AdminLTE for demo purposes -->
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script src="{{ asset('/dist/js/demo.js') }}" defer></script>
+<script>
+    $('.data_table').dataTable();
+</script>
 
 </body>
 </html>
