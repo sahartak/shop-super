@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\NewUser;
+use App\Models\User;
 use App\Models\UserShop;
 use App\Rules\Hostname;
 use Illuminate\Http\Request;
@@ -69,18 +70,33 @@ class HomeController extends Controller
 
     public  function plans()
     {
-        return view('user.plans');
+        $user = Auth::user();
+        /* @var $user User*/
+
+        $shop = $user->userShop;
+        $activePlan = $shop->plan && $shop->is_active ? $shop->plan : false;
+
+        return view('user.plans', compact(['activePlan','shop']));
     }
 
     public function subscribePlan($plan)
     {
         if ($plan) {
             $user = Auth::user();
+            /* @var $user User*/
+
             $shop = $user->userShop;
             $shop->plan = $plan;
-            $shop->is_active = 0;
-            $shop->save();
-            return view('user.pay', compact('shop'));
+            if ($plan == UserShop::SHOP_PLAN_FREE) {
+                $activePlan = $plan;
+                $shop->is_active = 1;
+                $shop->save();
+                return view('user.plans', compact(['activePlan','shop']));
+            } else {
+                $shop->is_active = 0;
+                $shop->save();
+                return view('user.pay', compact('shop'));
+            }
         }
 
         return back();
@@ -95,7 +111,15 @@ class HomeController extends Controller
     {
         if ($shop) {
             $shop = UserShop::find($shop);
-            if ($shop) {
+            $plan = $shop->plan;
+            if ($shop && $shop->plan && $shop->is_active) {
+                if ($plan != UserShop::SHOP_PLAN_FREE) {
+                    $user = Auth::user();
+                    /* @var $user User*/
+                    if ($user->subscribed()) {
+                        $user->subscription('default')->cancel();
+                    }
+                }
                 $shop->plan = 0;
                 $shop->is_active = 0;
                 $shop->save();

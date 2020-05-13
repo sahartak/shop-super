@@ -1,3 +1,7 @@
+<?php
+/* @var $activePlan*/
+/* @var $shop \App\Models\UserShop*/
+?>
 @extends('layouts.app',['title' => 'Plans'])
 @section('parentJs')
     @parent
@@ -25,7 +29,11 @@ use Illuminate\Support\Facades\Auth;
                             <ul class="list-unstyled mt-3 mb-4">
                                 <li>1 shelf in your store</li>
                             </ul>
-                            <a href="{{route('subscribePlan', \App\Models\UserShop::SHOP_PLAN_FREE)}}" class="btn btn-lg btn-block btn-outline-primary">Subscribe</a>
+                            @if($activePlan && $activePlan == \App\Models\UserShop::SHOP_PLAN_FREE)
+                                <a href="{{route('cancelPlan', $shop)}}" class="btn btn-lg btn-block btn-outline-primary">Cancel</a>
+                            @elseif(!$activePlan)
+                                <a href="{{route('subscribePlan', \App\Models\UserShop::SHOP_PLAN_FREE)}}" class="btn btn-lg btn-block btn-outline-primary">Subscribe</a>
+                            @endif
                         </div>
                     </div>
                     <div class="card mb-4 box-shadow">
@@ -38,7 +46,11 @@ use Illuminate\Support\Facades\Auth;
                                 <li> Up to 10 shelves in your store </li>
 
                             </ul>
-                            <a href="{{route('subscribePlan', \App\Models\UserShop::SHOP_PLAN_BUSINESS)}}" class="btn btn-lg btn-block btn-outline-primary">Subscribe</a>
+                            @if($activePlan && $activePlan == \App\Models\UserShop::SHOP_PLAN_BUSINESS)
+                                <a href="{{route('cancelPlan', $shop)}}" class="btn btn-lg btn-block btn-outline-primary">Cancel</a>
+                            @elseif(!$activePlan)
+                                <a href="{{route('subscribePlan', \App\Models\UserShop::SHOP_PLAN_BUSINESS)}}" class="btn btn-lg btn-block btn-outline-primary">Subscribe</a>
+                            @endif
                         </div>
                     </div>
                     <div class="card mb-4 box-shadow">
@@ -50,8 +62,11 @@ use Illuminate\Support\Facades\Auth;
                             <ul class="list-unstyled mt-3 mb-4">
                                 <li>More than 10 shelves in your store </li>
                             </ul>
-                            <a href="{{route('subscribePlan', \App\Models\UserShop::SHOP_PLAN_PREMIUM)}}" class="btn btn-lg btn-block btn-outline-primary">Subscribe</a>
-                        </div>
+                            @if($activePlan && $activePlan == \App\Models\UserShop::SHOP_PLAN_PREMIUM)
+                                <a href="{{route('cancelPlan', $shop)}}" class="btn btn-lg btn-block btn-outline-primary">Cancel</a>
+                            @elseif(!$activePlan)
+                                <a href="{{route('subscribePlan', \App\Models\UserShop::SHOP_PLAN_PREMIUM)}}" class="btn btn-lg btn-block btn-outline-primary">Subscribe</a>
+                            @endif                        </div>
                     </div>
                 </div>
 
