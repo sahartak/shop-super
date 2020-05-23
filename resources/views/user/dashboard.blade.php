@@ -11,13 +11,13 @@
 
                     <p class="card-body">
                     @if (session('errorMessage'))
-                        <div class="alert alert-success">
+                        <div class="alert alert-success alert-center">
                             {{ session('errorMessage') }}
                         </div>
                     @endif
 
                     @if ($errors->any())
-                        <div class="alert alert-danger">
+                        <div class="alert alert-danger alert-center">
                             <ul>
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
@@ -25,11 +25,11 @@
                             </ul>
                         </div>
                     @endif
-                    <form method="post" action="/shop-name" class="text-center">
+                    <form method="post" action="/shop-name" class="text-center ">
                         @csrf
                         <p>
                             https://
-                            <input type="text" name="shop_name" style="width: 250px" required> .{{env('SHOP_DOMAIN')}}
+                            <input type="text" name="shop_name" class="form-control shop_name" style="width: 250px" required> .{{env('SHOP_DOMAIN')}}
                         </p>
                         <p>
                             <br/>

@@ -12,6 +12,7 @@ class PaymentController extends Controller
     public function pay()
     {
         $user = Auth::user();
+
         return view('user.stripe-payment', [
             'intent' => $user->createSetupIntent()
         ]);
@@ -20,22 +21,65 @@ class PaymentController extends Controller
     public function makePayment(Request $request)
     {
         $payment_method = $request->has('payment_method') ? $request->get('payment_method') : null;
+
         $user = Auth::user();
-        /* @var User $user*/
-        $stripePlan = UserShop::$planSubscriptions[$user->userShop->plan];
+        /* @var User $user */
+
 
         try {
-            $result = $user->createOrGetStripeCustomer() && $user->addPaymentMethod($payment_method) && $user->newSubscription('default', $stripePlan)->create($payment_method);
-            $userShop = $user->userShop;
-            $userShop->is_active = 1;
-            $userShop->save();
+            $result = $user->createOrGetStripeCustomer() && $user->addPaymentMethod($payment_method);
+            $user->has_payment = 1;
+            $user->save();
             return response()->json(['status' => 1]);
         } catch (\Exception $ex) {
             return response()->json(['status' => 0, 'message' => $ex->getMessage()]);
         }
 
 
+    }
+
+    public function addPaymentMethod(Request $request)
+    {
+
+        if ($request->has('shopName')) {
+
+            $shop = $request->get('shopName');
+
+            $shop = UserShop::where('shop_name', $shop)->first();
+
+            if ($shop && $user = $shop->user) {
+
+                /* @var $user User */
+                if (!empty($user->subscribed('default'))) {
+                    if ($user->subscription('default')->incrementQuantity()) {
+                        return response()->json([
+                            'status' => 1,
+                        ]);
+                    }
+
+                }
+                foreach ($user->paymentMethods() as $paymentMethod) {
+                    try {
+                        $subscription = $user->newSubscription('default', User::STRIPE_PLAN_STANDARD)->create($paymentMethod->asStripePaymentMethod()->id);
+                        if ($subscription) {
+                            return response()->json([
+                                'status' => 1,
+                            ]);
+                        }
 
 
+                    } catch (\Exception $exception) {
+                    }
+                }
+
+
+                return response()->json([
+                    'status' => 0,
+                    'url' => route('stripe-payment')
+                ]);
+
+            }
+
+        }
     }
 }

@@ -36,7 +36,7 @@ class HomeController extends Controller
     public function saveShopName(Request $request)
     {
         $request->validate([
-            'shop_name' => ['required', 'string','min:5', new Hostname],
+            'shop_name' => ['required', 'string','min:3', new Hostname],
         ]);
 
         $shopName = $request->get('shop_name');
@@ -55,13 +55,13 @@ class HomeController extends Controller
             $userShop = UserShop::create([
                 'user_id' => $user->id,
                 'shop_name' => $shopName,
-                'is_active' => 0,
+                'is_active' => 1,
                 'plan' => 0
             ]);
 
             if ($userShop) {
                 Mail::to($user->email)->send(new NewUser($userShop));
-                return redirect()->route('showPlans');
+                return redirect()->route('user');
             }
         }
 

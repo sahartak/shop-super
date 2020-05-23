@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\UserShop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Stripe\Customer;
 
 
 class UserController extends Controller
@@ -13,11 +14,14 @@ class UserController extends Controller
     public function index()
     {
         $user = Auth::user();
+
         /* @var User $user*/
         $shop = $user->userShop;
         /* @var UserShop $shop*/
-        if ($shop->plan && $shop->is_active) {
+        if ($shop->is_active) {
+
             if(!$shop->has_setup) {
+
                 $shop->makeSetup();
                 $shop->has_setup = 1;
                 $shop->save();
@@ -34,11 +38,18 @@ class UserController extends Controller
         /* @var User $user*/
         $shop = $user->userShop;
 
-
-
-
-
         return view('user.edit', compact(['user', 'shop']));
+
+    }
+
+    public function view($id)
+    {
+        $user = User::findOrFail($id);
+        /* @var User $user*/
+        $shop = $user->userShop;
+        $subscription = $user->subscription('default');
+
+        return view('user.view', compact(['user', 'shop','subscription']));
 
     }
 

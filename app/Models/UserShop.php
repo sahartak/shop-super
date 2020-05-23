@@ -13,8 +13,6 @@ use Laravel\Cashier\Billable;
 class UserShop extends Model
 {
 
-    use Billable;
-
     const PLAN_ACTIVE = 1;
     const PLAN_INACTIVE = 0;
     const PLAN_PENDING = 2;
@@ -26,22 +24,6 @@ class UserShop extends Model
             self::PLAN_PENDING => 'Pending'
         ];
 
-    const SHOP_PLAN_FREE = 1;
-    const SHOP_PLAN_BUSINESS = 2;
-    const SHOP_PLAN_PREMIUM = 3;
-
-    public static $plans =
-        [
-            self::SHOP_PLAN_FREE => 'Free',
-            self::SHOP_PLAN_BUSINESS => 'Business',
-            self::SHOP_PLAN_PREMIUM => 'Premium'
-        ];
-
-    public static $planSubscriptions =
-        [
-            self::SHOP_PLAN_BUSINESS => User::STRIPE_PLAN_STANDARD,
-            self::SHOP_PLAN_PREMIUM => User::STRIPE_PLAN_PREMIUM
-        ];
 
     protected $guarded = [];
 
@@ -93,6 +75,7 @@ class UserShop extends Model
         $dbPassword = env('DB_PASSWORD');
 
         if(!$this->createDatabase($dbName, $dbPassword)) {
+
             throw new \Exception('Db Error');
         }
 

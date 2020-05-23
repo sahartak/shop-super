@@ -23,10 +23,10 @@ class User extends Authenticatable
     const USER_STATUS_DELETED = 2;
 
     const STANDARD_PRODUCT = 'Standard';
-    const PREMIUM_PRODUCT = 'Premium';
+    const STRIPE_CUSTOMER_DASHBOARD = 'https://dashboard.stripe.com/test/customers';
 
     const STRIPE_PLAN_STANDARD = 'standard';
-    const STRIPE_PLAN_PREMIUM = 'premium';
+
 
     const SUBSCRIPTION_STANDARD = [
         'amount' => '1000',
@@ -34,13 +34,6 @@ class User extends Authenticatable
         'currency' => 'usd',
         //'product' => self::STANDARD_PRODUCT,
         'id' => self::STRIPE_PLAN_STANDARD,
-    ];
-    const SUBSCRIPTION_PREMIUM = [
-        'amount' => '10000',
-        'interval' => 'month',
-        'currency' => 'usd',
-        //'product' => self::PREMIUM_PRODUCT,
-        'id' => self::STRIPE_PLAN_PREMIUM,
     ];
 
 
@@ -64,7 +57,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'status'
+        'name', 'email', 'password', 'status','boards_limit','boards_created','has_payment'
     ];
 
     /**

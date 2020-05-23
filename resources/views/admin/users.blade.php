@@ -21,8 +21,8 @@
             <th scope="col">Role</th>
             <th scope="col">User status</th>
             <th scope="col">Shop</th>
-            <th scope="col">Plan</th>
-            <th scope="col">Shop status</th>
+            <th scope="col">Has payment</th>
+            <th scope="col">Boards</th>
             <th scope="col">Created at</th>
             <th scope="col">Actions</th>
         </tr>
@@ -30,17 +30,18 @@
         <tbody>
         @foreach($users as $key => $user)
             <tr>
-                <th scope="row">{{$key++}}</th>
+                <th scope="row">{{$loop->iteration}}</th>
                 <td>{{$user->id}}</td>
                 <td>{{$user->name}}</td>
               {{--  <td>{{$user->email}}</td>--}}
                 <td>{{$user->roleName()}}</td>
                 <td>{{$user->statusName()}}</td>
                 <td>{{$user->userShop->shop_name ?? ''}}</td>
-                <td>{{$user->userShop->plan ?? ''}}</td>
-                <td>{{$user->userShop ? $user->userShop->planStatus() : ''}}</td>
+                <td>{{$user->has_payment ? 'Yes' : 'No'}}</td>
+                <td>{{$user->boards_created}}</td>
                 <td>{{$user->created_at}}</td>
                 <td>
+                    <a href="{{ route('user-view', $user->id) }}" class="btn btn-success">view</a>
                     <a href="{{ route('user-edit', $user->id) }}" class="btn btn-primary">edit</a>
                     <a href="{{ route('user-delete', $user->id) }}" class="btn btn-danger">delete</a>
                 </td>

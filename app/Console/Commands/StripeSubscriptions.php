@@ -43,9 +43,7 @@ class StripeSubscriptions extends Command
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));
         $standardProduct = Product::create(['name' => User::STANDARD_PRODUCT]);
-        $premiumProduct = Product::create(['name' => User::PREMIUM_PRODUCT]);
         Plan::create(User::SUBSCRIPTION_STANDARD + ['product' => $standardProduct->id]);
-        Plan::create(User::SUBSCRIPTION_PREMIUM + ['product' => $premiumProduct->id]);
 
     }
 }

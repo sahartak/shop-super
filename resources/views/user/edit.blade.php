@@ -50,14 +50,6 @@
                     <input type="text" class="form-control" name="shop_name" value="{{$shop->shop_name}}" />
                 </div>
 
-                <div class="form-group">
-                    <label for="city">Plan:</label>
-                    <select name="plan" class="custom-select">
-                        @foreach(\App\Models\UserShop::$plans as $val => $plan)
-                            <option value="{{$val}}" @if($shop->plan == $val) selected @endif>{{$plan}}</option>
-                        @endforeach
-                    </select>
-                </div>
 
                 <div class="form-group">
                     <label for="city">Plan status:</label>
