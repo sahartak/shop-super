@@ -36,4 +36,5 @@ Route::patch('/user/update/{id}', 'UserController@update')->name('user-update');
 Route::get('/stripe-payment', 'PaymentController@pay')->name('stripe-payment')->middleware('auth');
 Route::post('/make-payment', 'PaymentController@makePayment')->name('make-payment');
 Route::any('/add-payment-method', 'PaymentController@addPaymentMethod')->name('add-payment');
+Route::any('/decrement-subscription', 'PaymentController@decrementSubscription')->name('decrement-subscription');
 

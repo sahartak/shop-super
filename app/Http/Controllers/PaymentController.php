@@ -82,4 +82,44 @@ class PaymentController extends Controller
 
         }
     }
+
+    public function decrementSubscription(Request $request)
+    {
+        if ($request->has('shopName')) {
+
+            $shop = $request->get('shopName');
+
+            $shop = UserShop::where('shop_name', $shop)->first();
+
+            if ($shop && $user = $shop->user) {
+
+                /* @var $user User */
+                try {
+                    if ($user->boards_created == 2) {
+                        $user->subscription('default')->cancel();
+                    }else {
+                        $user->subscription('default')->decrementQuantity();
+                    }
+
+                    return response()->json([
+                        'status' => 1
+                    ]);
+
+                } catch (\Exception $ex) {
+                    return response()->json([
+                        'status' => 0,
+                        'message' => $ex->getMessage()
+                    ]);
+                }
+
+            }
+
+        }
+
+        return response()->json([
+            'status' => 0,
+            'message' => 'cccc'
+        ]);
+
+    }
 }
