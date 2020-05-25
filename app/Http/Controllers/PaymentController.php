@@ -95,12 +95,11 @@ class PaymentController extends Controller
 
                 /* @var $user User */
                 try {
-                    /*if ($user->boards_created == 2) {
+                    if ($user->boards_created == 2) {
                         $user->subscription('default')->cancel();
                     }else {
                         $user->subscription('default')->decrementQuantity();
-                    }*/
-                    $user->subscription('default')->decrementQuantity();
+                    }
 
                     return response()->json([
                         'status' => 1
