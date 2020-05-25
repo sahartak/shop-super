@@ -79,7 +79,7 @@ class UserShop extends Model
             throw new \Exception('Db Error');
         }
 
-        $http = Request::secure() ? 'https//' : 'http://';
+        $http = Request::secure() ? 'https://' : 'http://';
 
         $key = 'base64:'.base64_encode(
             Encrypter::generateKey(app()['config']['app.cipher'])
