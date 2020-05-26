@@ -42,29 +42,34 @@
     <div class="container">
         <div class="row justify-content-center">
 
+
             <div class="col-md-6">
                 <div class="card">
+                    <div class="card-header">
+                        Our free plan is limited to 2 boards. If you would like to use more boards, please subscribe to our paid plan.
+                        The monthly subscription price for each extra board is USD 10
+                    </div>
                     <div class="card-body">
-                <div class="payment-form">
-                    <div class="form-group">
-                        <label for="card-holder-name">Card holder</label>
-                        <input id="card-holder-name" type="text" class="form-control">
-                    </div>
-                    @csrf
+                        <div class="payment-form">
+                            <div class="form-group">
+                                <label for="card-holder-name">Card holder</label>
+                                <input id="card-holder-name" type="text" class="form-control">
+                            </div>
+                        @csrf
 
 
 
-                    <!-- Stripe Elements Placeholder -->
-                    <div class="form-group">
-                    <div id="card-element">
-                    </div>
-                    </div>
-                    <div class="form-group">
-                    <button id="card-button" data-secret="{{ $intent->client_secret }}" class="btn btn-primary">Pay</button>
+                        <!-- Stripe Elements Placeholder -->
+                            <div class="form-group">
+                                <div id="card-element">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button id="card-button" data-secret="{{ $intent->client_secret }}" class="btn btn-primary">Pay</button>
 
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
                 </div>
             </div>
         </div>

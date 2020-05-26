@@ -43,7 +43,8 @@
                 <td>
                     <a href="{{ route('user-view', $user->id) }}" class="btn btn-success">view</a>
                     <a href="{{ route('user-edit', $user->id) }}" class="btn btn-primary">edit</a>
-                    <a href="{{ route('user-delete', $user->id) }}" class="btn btn-danger">delete</a>
+                    <a href="{{ route('user-delete', $user->id) }}" class="btn btn-danger"
+                       data-target="#confirm-delete" onclick="return confirm('Are you sure you want remove {{$user->name}}')">delete</a>
                 </td>
             </tr>
         @endforeach

@@ -48,8 +48,9 @@ class UserController extends Controller
         /* @var User $user*/
         $shop = $user->userShop;
         $subscription = $user->subscription('default');
+        $subscriptionQuantity = $subscription ?  $subscription->quantity : 0;
 
-        return view('user.view', compact(['user', 'shop','subscription']));
+        return view('user.view', compact(['user', 'shop','subscriptionQuantity']));
 
     }
 

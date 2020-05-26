@@ -50,18 +50,6 @@
                     <input type="text" class="form-control" name="shop_name" value="{{$shop->shop_name}}" />
                 </div>
 
-
-                <div class="form-group">
-                    <label for="city">Plan status:</label>
-                    <select name="is_active" class="custom-select">
-                        @foreach(\App\Models\UserShop::$planStatuses as $val => $status)
-                            <option value="{{$val}}" @if($shop->is_ictive == $val) selected @endif>{{$status}}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-
-
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>

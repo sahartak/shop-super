@@ -39,16 +39,12 @@
                             <td>{{$shop->shop_name}}</td>
                         </tr>
                         <tr>
-                            <td>Shop status</td>
-                            <td>{{\App\Models\UserShop::$planStatuses[$shop->is_active]}}</td>
-                        </tr>
-                        <tr>
                             <td>Boards</td>
                             <td>{{$user->boards_created}}</td>
                         </tr>
                         <tr>
                             <td>Subscription quantity</td>
-                            <td>{{$subscription->quantity}}</td>
+                            <td>{{$subscriptionQuantity}}</td>
                         </tr>
 
                         <tr>
