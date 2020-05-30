@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/ru', function () {
+    return view('welcome-ru');
+});
 
 Auth::routes();
 
@@ -37,4 +40,5 @@ Route::get('/stripe-payment', 'PaymentController@pay')->name('stripe-payment')->
 Route::post('/make-payment', 'PaymentController@makePayment')->name('make-payment');
 Route::any('/add-payment-method', 'PaymentController@addPaymentMethod')->name('add-payment');
 Route::any('/decrement-subscription', 'PaymentController@decrementSubscription')->name('decrement-subscription');
+Route::post('/refund', 'PaymentController@refund')->name('payment-refund');
 

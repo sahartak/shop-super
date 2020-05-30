@@ -15,6 +15,10 @@ class User extends Authenticatable
 {
     use Notifiable, Billable;
 
+    const STRIPE_INVOICE_URL = 'https://dashboard.stripe.com/invoices';
+    const STRIPE_CUSTOMER_DASHBOARD = 'https://dashboard.stripe.com/customers';
+    const STRIPE_PAYMENTS_DASHBOARD = 'https://dashboard.stripe.com/payments';
+
     const USER_ROLE_ADMIN = 1;
     const USER_ROLE_USER = 0;
 
@@ -22,10 +26,10 @@ class User extends Authenticatable
     const USER_STATUS_INACTIVE = 0;
     const USER_STATUS_DELETED = 2;
 
-    const STANDARD_PRODUCT = 'Standard';
-    const STRIPE_CUSTOMER_DASHBOARD = 'https://dashboard.stripe.com/test/customers';
+    const STANDARD_PRODUCT = 'Standard1';
 
-    const STRIPE_PLAN_STANDARD = 'standard';
+
+    const STRIPE_PLAN_STANDARD = 'standard-1';
 
 
     const SUBSCRIPTION_STANDARD = [

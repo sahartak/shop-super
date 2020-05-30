@@ -13,8 +13,8 @@
                     <table class="table table-hover text-nowrap">
                         <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Reason</th>
+                            <th>Field</th>
+                            <th>Info</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -49,7 +49,12 @@
 
                         <tr>
                             <td>Stripe customer</td>
-                            <td><a href="{{\App\Models\User::STRIPE_CUSTOMER_DASHBOARD.'/'.$user->stripeId()}}" target="_blank">{{$user->stripeId()}} </a></td>
+                            <td>
+                                <a href="{{\App\Models\User::STRIPE_CUSTOMER_DASHBOARD.'/'.$user->stripeId()}}"
+                                   target="_blank">{{$user->stripeId()}}
+                                </a>
+
+                            </td>
                         </tr>
 
                         </tbody>
@@ -58,6 +63,120 @@
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->
+        </div>
+    </div>
+    @if(!empty($errorMessage))
+        @foreach($errorMessage as $message)
+            <div class="alert alert-danger" role="alert">
+                {{$message}}
+            </div>
+        @endforeach
+
+    @endif
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Invoices</h3>
+                </div>
+
+                @if(!empty($invoices))
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Number</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>PDF</th>
+                                <th>Invoice URL</th>
+                                <th>Refund</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($invoices as $invoice)
+                                <tr>
+                                    <td>
+
+                                        <a href="{{\App\Models\User::STRIPE_INVOICE_URL.'/'.$invoice->id}}"
+                                           target="_blank">
+                                            {{$invoice->id}}
+                                        </a>
+                                    </td>
+                                    <td>{{$invoice->number}}</td>
+                                    <td>{{$invoice->total/100}}</td>
+                                    <td>{{$invoice->status}}</td>
+                                    <td>{{date('Y-m-d H:i',$invoice->created)}}</td>
+                                    <td><a href="{{$invoice->invoice_pdf}}">PDF</a></td>
+                                    <td><a href="{{$invoice->hosted_invoice_url}}">Invoice URL</a></td>
+                                    <td>
+                                        <form method="post" action="{{route('payment-refund')}}">
+                                            @csrf
+                                            <input type="number" name="amount" max="{{$invoice->total/100}}">
+                                            <input type="hidden" name="payment_intent"
+                                                   value="{{$invoice->payment_intent}}">
+                                            <button type="submit" data-target="#confirm-delete"
+                                                    onclick="return confirm('Are you sure you want refund invoice')">
+                                                Refund
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Charges</h3>
+                </div>
+                @if(!empty($charges))
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Receipt Number</th>
+                                <th>Receipt URL</th>
+                                <th>Amount</th>
+                                <th>Refunded</th>
+                                <th>Refunded amount</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($charges as $charge)
+                                <tr>
+                                    <td>
+                                        <a href="{{\App\Models\User::STRIPE_PAYMENTS_DASHBOARD.'/'.$charge->id}}"
+                                           target="_blank">
+                                            {{$charge->id}}
+                                        </a>
+                                    </td>
+                                    <td>{{date('Y-m-d H:i',$charge->created)}}</td>
+                                    <td>{{$charge->receipt_number}}</td>
+                                    <td><a href="{{$charge->receipt_url}}" target="_blank">Receipt URL</a></td>
+                                    <td>{{$charge->amount/100}}</td>
+                                    <td>{{$charge->refunded ? 'Yes' : 'No'}}</td>
+                                    <td>{{$charge->amount_refunded/100}}</td>
+
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+            </div>
+
         </div>
     </div>
 @endsection

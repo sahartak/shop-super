@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\UserShop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Stripe\Stripe;
 
 class PaymentController extends Controller
 {
@@ -120,6 +121,31 @@ class PaymentController extends Controller
             'status' => 0,
             'message' => 'cccc'
         ]);
+
+    }
+
+    public function refund(Request $request)
+    {
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+        $amount = $request->get('amount');
+        $payment_intent = $request->get('payment_intent');
+        $errorMessage = '';
+        try {
+            if ($amount) {
+                $re = \Stripe\Refund::create([
+                    'amount' => $amount*100,
+                    'payment_intent' => $payment_intent,
+                ]);
+            } else {
+                $re = \Stripe\Refund::create([
+                    'payment_intent' => $payment_intent,
+                ]);
+            }
+        } catch (\Exeption $ex) {
+            $errorMessage = $ex->getMessage();
+        }
+
+        return redirect()->refresh()->withErrors($errorMessage);
 
     }
 }

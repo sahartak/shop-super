@@ -6,7 +6,10 @@ use App\Models\User;
 use App\Models\UserShop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Stripe\Charge;
 use Stripe\Customer;
+use Stripe\Stripe;
+use Stripe\StripeClient;
 
 
 class UserController extends Controller
@@ -44,13 +47,42 @@ class UserController extends Controller
 
     public function view($id)
     {
+
         $user = User::findOrFail($id);
         /* @var User $user*/
+
+        $invoices = [];
+        $charges = [];
+        $errorMessage = [];
+        if ($user->stripeId()) {
+            $stripe = new \Stripe\StripeClient(
+                env('STRIPE_SECRET')
+            );
+            try {
+                $invoices = $stripe->invoices->all(['customer' => $user->stripeId()]);
+                if ($invoices->data) {
+                    $invoices = $invoices->data;
+                }
+            } catch (\Exeption $ex) {
+               $errorMessage[] = $ex->getMessage();
+            }
+            try {
+                $charges = $stripe->charges->all(['customer' => $user->stripeId()]);
+                if ($charges->data) {
+                    $charges = $charges->data;
+                }
+            } catch (\Exeption $ex) {
+                $errorMessage[] = $ex->getMessage();
+            }
+        }
+
+
         $shop = $user->userShop;
         $subscription = $user->subscription('default');
         $subscriptionQuantity = $subscription ?  $subscription->quantity : 0;
 
-        return view('user.view', compact(['user', 'shop','subscriptionQuantity']));
+        return view('user.view', compact(['user', 'shop','subscriptionQuantity',
+            'errorMessage','invoices','charges']));
 
     }
 
