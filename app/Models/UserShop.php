@@ -96,4 +96,13 @@ class UserShop extends Model
 
         return $this->writeEnvFile($replacementsData);
     }
+
+
+    public function shopDashboard()
+    {
+        if ($this->custom_domain) {
+            return 'http://'.$this->custom_domain.'/dashboard';
+        }
+        return 'http://'.$this->shop_name.'.'.env('SHOP_DOMAIN').'/dashboard';
+    }
 }
