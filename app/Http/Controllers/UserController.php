@@ -105,9 +105,12 @@ class UserController extends Controller
 
         $userShop = $user->userShop;
         if ($userShop) {
+            /* @var $userShop UserShop*/
+            if (empty($request->get('custom_domain')) && $userShop->custom_domain){
+                $userShop->deleteDomainMappigFile();
+            }
             $userShop->shop_name = $request->get('shop_name');
-            $userShop->plan = $request->get('plan');
-            $userShop->is_active = $request->get('is_active');
+            $userShop->custom_domain = $request->get('custom_domain');
             $userShop->save();
         }
 

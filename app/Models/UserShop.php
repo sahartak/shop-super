@@ -69,6 +69,19 @@ class UserShop extends Model
         return file_put_contents($envFile, $envData);
     }
 
+    public function deleteDomainMappigFile()
+    {
+        $envFilePath = dirname(base_path());
+        $mappingFile = $envFilePath.'/'.env('SHOP_FOLDER').'/domain-mapping/'.$this->custom_domain.'.txt';
+        if (file_exists($mappingFile)) {
+            unlink($mappingFile);
+            return true;
+        }
+        return false;
+
+
+    }
+
     public function makeSetup()
     {
         $dbName = 'shop_'.$this->id.'_'.time();

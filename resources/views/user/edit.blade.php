@@ -40,7 +40,7 @@
                     <label for="city">Role:</label>
                     <select name="role" class="custom-select">
                         @foreach(\App\Models\User::$roles as $val => $role)
-                            <option value="{{$val}}" @if($user->status == $val) selected @endif>{{$role}}</option>
+                            <option value="{{$val}}" @if($user->role == $val) selected @endif>{{$role}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -48,6 +48,10 @@
                 <div class="form-group">
                     <label for="name">User Shop:</label>
                     <input type="text" class="form-control" name="shop_name" value="{{$shop->shop_name}}" />
+                </div>
+                <div class="form-group">
+                    <label for="name">Shop custom domain:</label>
+                    <input type="text" class="form-control" name="custom_domain" value="{{$shop->custom_domain}}" />
                 </div>
 
                 <button type="submit" class="btn btn-primary">Update</button>

@@ -6,8 +6,11 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">{{$user->name}} info</h3>
-
+                    <div class="edit-button">
+                        <a href="{{ route('user-edit', $user->id) }}" class="btn btn-primary">Edit</a>
+                    </div>
                 </div>
+
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
@@ -37,6 +40,13 @@
                         <tr>
                             <td>Shop</td>
                             <td>{{$shop->shop_name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Custom domain</td>
+                            <td>
+                                {{$shop->custom_domain}}
+                               {{-- <a href="{{$shop->custom_domain}}" target="_blank">{{$shop->custom_domain}}</a>--}}
+                            </td>
                         </tr>
                         <tr>
                             <td>Boards</td>
