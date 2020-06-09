@@ -114,6 +114,10 @@ class UserController extends Controller
             if(UserShop::checkDomainExistance($newDomain,$userShop->id)){
                 return redirect()->back()->withErrors('Domain already exists');
             }
+            if($newDomain && !UserShop::checkDomainIp($newDomain)){
+                return redirect()->back()->withErrors('Your domain is not pointing to our server ip address');
+            }
+
             $userShop->domainMappingFiles($newDomain);
             $userShop->shop_name = $request->get('shop_name');
             $userShop->custom_domain = $newDomain;

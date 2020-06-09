@@ -37,6 +37,15 @@ class UserShop extends Model
         return self::$planStatuses[$this->is_active];
     }
 
+    const SERVER_IP = '172.105.88.59';
+    const SERVER_IP_LOCAL = '127.0.0.1';
+
+    public static $domains =
+        [
+            self::SERVER_IP => 'byllett.com',
+            self::SERVER_IP_LOCAL => 'shop-super.loc',
+        ];
+
 
     protected function createDatabase($dbName, $dbPassword)
     {
@@ -151,6 +160,16 @@ class UserShop extends Model
     public static function checkDomainExistance($domain, $shop_id)
     {
         return UserShop::where([['custom_domain', '=', $domain], ['id', '<>', $shop_id]])->first();
+    }
+
+    public static function checkDomainIp($domain)
+    {
+        $hostIp = gethostbyname($domain);
+
+        if ($hostIp == $_SERVER['SERVER_ADDR']) {
+            return true;
+        }
+        return false;
     }
 
 }
