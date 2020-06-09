@@ -106,12 +106,19 @@ class UserController extends Controller
         $userShop = $user->userShop;
         if ($userShop) {
             /* @var $userShop UserShop*/
-            if (empty($request->get('custom_domain')) && $userShop->custom_domain){
-                $userShop->deleteDomainMappigFile();
+            $newDomain = trim(str_replace(['http://', 'https://'], '', $request->get('custom_domain')));
+
+            if($newDomain && !UserShop::is_valid_domain_name($newDomain)){
+                return redirect()->back()->withErrors('Domain is not valid');
             }
+            if(UserShop::checkDomainExistance($newDomain,$userShop->id)){
+                return redirect()->back()->withErrors('Domain already exists');
+            }
+            $userShop->domainMappingFiles($newDomain);
             $userShop->shop_name = $request->get('shop_name');
-            $userShop->custom_domain = $request->get('custom_domain');
+            $userShop->custom_domain = $newDomain;
             $userShop->save();
+
         }
 
         return redirect()->route('show-users')->with('success', 'User updated!');

@@ -69,6 +69,16 @@ class UserShop extends Model
         return file_put_contents($envFile, $envData);
     }
 
+    public function createDomainMappigFile($newDomain)
+    {
+        $envFilePath = dirname(base_path());
+        $mappingFile = $envFilePath.'/'.env('SHOP_FOLDER').'/domain-mapping/'.$newDomain.'.txt';
+        if (file_put_contents($mappingFile, $this->shop_name)){
+            return true;
+        }
+        return false;
+    }
+
     public function deleteDomainMappigFile()
     {
         $envFilePath = dirname(base_path());
@@ -78,7 +88,18 @@ class UserShop extends Model
             return true;
         }
         return false;
+    }
 
+    public function domainMappingFiles($newDomain) {
+
+        if ($newDomain && $newDomain != $this->custom_domain) {
+            $this->deleteDomainMappigFile();
+            $this->createDomainMappigFile($newDomain);
+        } elseif ($newDomain != $this->custom_domain && $this->custom_domain) {
+            $this->deleteDomainMappigFile();
+        }
+
+        return false;
 
     }
 
@@ -118,4 +139,18 @@ class UserShop extends Model
         }
         return 'http://'.$this->shop_name.'.'.env('SHOP_DOMAIN').'/dashboard';
     }
+
+    public static function is_valid_domain_name($domain_name)
+    {
+        return (preg_match("/^([a-z\d](-*[a-z\d])*)(\.([a-z\d](-*[a-z\d])*))*$/i", $domain_name) //valid chars check
+            && preg_match("/^.{1,253}$/", $domain_name) //overall length check
+            && preg_match("/^[^\.]{1,63}(\.[^\.]{1,63})*$/", $domain_name)//length of each label
+            &&  (strpos($domain_name, '.') && $domain_name[strlen($domain_name)-1] !=='.' && $domain_name[0] !=='.')
+        );
+    }
+    public static function checkDomainExistance($domain, $shop_id)
+    {
+        return UserShop::where([['custom_domain', '=', $domain], ['id', '<>', $shop_id]])->first();
+    }
+
 }
