@@ -172,4 +172,9 @@ class UserShop extends Model
         return false;
     }
 
+    public static function filterDomainName($domain)
+    {
+        return trim(str_replace(['http://','https://','www.'], '', $domain));
+    }
+
 }

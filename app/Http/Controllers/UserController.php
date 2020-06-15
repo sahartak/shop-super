@@ -106,7 +106,7 @@ class UserController extends Controller
         $userShop = $user->userShop;
         if ($userShop) {
             /* @var $userShop UserShop*/
-            $newDomain = trim(str_replace(['http://', 'https://'], '', $request->get('custom_domain')));
+            $newDomain = UserShop::filterDomainName($request->get('custom_domain'));
 
             if($newDomain && !UserShop::is_valid_domain_name($newDomain)){
                 return redirect()->back()->withErrors('Domain is not valid');
