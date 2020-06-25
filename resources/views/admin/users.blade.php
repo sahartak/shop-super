@@ -45,10 +45,10 @@
                 <td>{{$user->userShop->custom_domain_confirmed ? 'Yes' : 'No'}}</td>
                 <td>{{$user->created_at}}</td>
                 <td>
-                    <a href="{{ route('user-view', $user->id) }}" class="btn btn-success">view</a>
-                    <a href="{{ route('user-edit', $user->id) }}" class="btn btn-primary">edit</a>
-                    <a href="{{ route('user-delete', $user->id) }}" class="btn btn-danger"
-                       data-target="#confirm-delete" onclick="return confirm('Are you sure you want remove {{$user->name}}')">delete</a>
+                    <a href="{{ route('user-view', $user->id) }}"><i class="fas fa-eye"></i></a>
+                    <a href="{{ route('user-edit', $user->id) }}"><i class="far fa-edit"></i></a>
+                    <a href="{{ route('user-delete', $user->id) }}"
+                       data-target="#confirm-delete" onclick="return confirm('Are you sure you want remove {{$user->name}}')"><i class="far fa-trash-alt"></i></a>
                 </td>
             </tr>
         @endforeach
