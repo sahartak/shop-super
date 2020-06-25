@@ -23,6 +23,7 @@
             <th scope="col">Shop</th>
             <th scope="col">Has payment</th>
             <th scope="col">Boards</th>
+            <th scope="col">Custom Domain</th>
             <th scope="col">Created at</th>
             <th scope="col">Actions</th>
         </tr>
@@ -39,6 +40,7 @@
                 <td>{{$user->userShop->shop_name ?? ''}}</td>
                 <td>{{$user->has_payment ? 'Yes' : 'No'}}</td>
                 <td>{{$user->boards_created}}</td>
+                <td>{{$user->userShop->custom_domain}}</td>
                 <td>{{$user->created_at}}</td>
                 <td>
                     <a href="{{ route('user-view', $user->id) }}" class="btn btn-success">view</a>
