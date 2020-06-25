@@ -17,6 +17,9 @@ class UserShop extends Model
     const PLAN_INACTIVE = 0;
     const PLAN_PENDING = 2;
 
+    const CUSTOM_DOMAIN_NOT_CONFIRMED = 0;
+    const CUSTOM_DOMAIN_CONFIRMED = 1;
+
     public static $planStatuses =
         [
             self::PLAN_INACTIVE => 'Inactive',
@@ -72,7 +75,6 @@ class UserShop extends Model
             $replacements[$key.'='] = $key.'='.$value;
         }
         $envData = str_replace(array_keys($replacements), array_values($replacements), $envExample);
-
         $envFile = $envFilePath.'/'.env('SHOP_FOLDER').'/env-files/.env-'.$this->shop_name;
 
         return file_put_contents($envFile, $envData);
@@ -175,6 +177,25 @@ class UserShop extends Model
     public static function filterDomainName($domain)
     {
         return trim(str_replace(['http://','https://','www.'], '', $domain));
+    }
+
+    /**
+     * @return array
+     */
+    public static function notConfirmedDomainsShops()
+    {
+        return UserShop::query()
+            ->whereNotNull('custom_domain')
+            ->where('custom_domain_confirmed', UserShop::CUSTOM_DOMAIN_NOT_CONFIRMED)
+            ->get()
+            ->all();
+    }
+
+    public function matchAppUrlEnv($content)
+    {
+        preg_match('/APP_URL=(.*?)\r\nSHOP_DOMAIN/s', $content, $match);
+        return $match[1];
+
     }
 
 }

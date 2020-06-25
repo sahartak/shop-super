@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\CustomDomainCheck;
 use App\Console\Commands\StripeSubscriptions;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -14,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        StripeSubscriptions::class
+        StripeSubscriptions::class,
+        CustomDomainCheck::class,
     ];
 
     /**
@@ -25,7 +27,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
     }
 
     /**
