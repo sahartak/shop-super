@@ -20,6 +20,12 @@ class UserShop extends Model
     const CUSTOM_DOMAIN_NOT_CONFIRMED = 0;
     const CUSTOM_DOMAIN_CONFIRMED = 1;
 
+    public static $custom_domain_statuses = [
+        self::CUSTOM_DOMAIN_NOT_CONFIRMED => 'Not active',
+        self::CUSTOM_DOMAIN_CONFIRMED => 'Active',
+
+        ];
+
     public static $planStatuses =
         [
             self::PLAN_INACTIVE => 'Inactive',

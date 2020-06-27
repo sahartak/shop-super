@@ -121,6 +121,7 @@ class UserController extends Controller
             $userShop->domainMappingFiles($newDomain);
             $userShop->shop_name = $request->get('shop_name');
             $userShop->custom_domain = $newDomain;
+            $userShop->custom_domain_confirmed = $request->get('custom_domain_confirmed');
             $userShop->save();
 
         }

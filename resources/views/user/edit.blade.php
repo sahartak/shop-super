@@ -54,6 +54,15 @@
                     <input type="text" class="form-control" name="custom_domain" value="{{$shop->custom_domain}}" />
                 </div>
 
+                <div class="form-group">
+                    <label for="custom_domain_confirmed">Custom domain status:</label>
+                    <select name="custom_domain_confirmed" class="custom-select" id="custom_domain_confirmed">
+                        @foreach(\App\Models\UserShop::$custom_domain_statuses as $val => $status)
+                            <option value="{{$val}}" @if($shop->custom_domain_confirmed == $val) selected @endif>{{$status}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>
