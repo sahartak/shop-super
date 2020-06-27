@@ -112,7 +112,7 @@ class UserShop extends Model
         if ($newDomain && $newDomain != $this->custom_domain) {
             $this->deleteDomainMappigFile();
             $this->createDomainMappigFile($newDomain);
-        } elseif ($newDomain != $this->custom_domain && $this->custom_domain) {
+        } elseif (($newDomain != $this->custom_domain && $this->custom_domain) || (!$newDomain && $this->custom_domain )) {
             $this->deleteDomainMappigFile();
         }
 
@@ -212,7 +212,6 @@ class UserShop extends Model
     {
         $shopTopFolder = self::getShopTopPath();
         if (file_exists($shopTopFolder."/domain-mapping/{$this->custom_domain}.txt")) {
-            dd('dddd');
             unlink($shopTopFolder."/domain-mapping/{$this->custom_domain}.txt");
         }
         $this->custom_domain = '';

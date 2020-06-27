@@ -117,16 +117,11 @@ class UserController extends Controller
                 if(!UserShop::checkDomainIp($newDomain)){
                     return redirect()->back()->withErrors('Your domain is not pointing to our server ip address');
                 }
-            } else {
-                if ($userShop->custom_domain) {
-                    $userShop->deleteMappingFile();
-                }
             }
-
             $userShop->domainMappingFiles($newDomain);
             $userShop->shop_name = $request->get('shop_name');
             $userShop->custom_domain = $newDomain;
-            $userShop->custom_domain_confirmed = $request->get('custom_domain_confirmed');
+            $userShop->custom_domain_confirmed = $newDomain ? $request->get('custom_domain_confirmed') : UserShop::CUSTOM_DOMAIN_NOT_CONFIRMED;
             $userShop->save();
 
         }
