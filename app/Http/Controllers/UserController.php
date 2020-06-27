@@ -107,15 +107,16 @@ class UserController extends Controller
         if ($userShop) {
             /* @var $userShop UserShop*/
             $newDomain = UserShop::filterDomainName($request->get('custom_domain'));
-
-            if($newDomain && !UserShop::is_valid_domain_name($newDomain)){
-                return redirect()->back()->withErrors('Domain is not valid');
-            }
-            if(UserShop::checkDomainExistance($newDomain,$userShop->id)){
-                return redirect()->back()->withErrors('Domain already exists');
-            }
-            if($newDomain && !UserShop::checkDomainIp($newDomain)){
-                return redirect()->back()->withErrors('Your domain is not pointing to our server ip address');
+            if ($newDomain) {
+                if(!UserShop::is_valid_domain_name($newDomain)){
+                    return redirect()->back()->withErrors('Domain is not valid');
+                }
+                if(UserShop::checkDomainExistance($newDomain,$userShop->id)){
+                    return redirect()->back()->withErrors('Domain already exists');
+                }
+                if(!UserShop::checkDomainIp($newDomain)){
+                    return redirect()->back()->withErrors('Your domain is not pointing to our server ip address');
+                }
             }
 
             $userShop->domainMappingFiles($newDomain);
