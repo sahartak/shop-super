@@ -119,7 +119,6 @@ class UserController extends Controller
                 }
             } else {
                 if ($userShop->custom_domain) {
-                    dd('cccc');
                     $userShop->deleteMappingFile();
                 }
             }

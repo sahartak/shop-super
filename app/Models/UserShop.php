@@ -211,6 +211,7 @@ class UserShop extends Model
     public function deleteMappingFile()
     {
         $shopTopFolder = self::getShopTopPath();
+        dd($shopTopFolder."/domain-mapping/{$this->custom_domain}.txt");
         if (file_exists($shopTopFolder."/domain-mapping/{$this->custom_domain}.txt")) {
             unlink($shopTopFolder."/domain-mapping/{$this->custom_domain}.txt");
         }
