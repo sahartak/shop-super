@@ -55,8 +55,6 @@ class CustomDomainCheck extends Command
                 if (file_exists($path)) {
                     //$appUrl = $shop->shop_name.'.'.env('SHOP_DOMAIN');
                     $appUrl = $shop->matchAppUrlEnv(file_get_contents($path));
-                    print_r($appUrl);
-                    print_r($newDomain);
                     file_put_contents($path, str_replace(
                         $appUrl, 'http://'.$newDomain, file_get_contents($path)
                     ));
