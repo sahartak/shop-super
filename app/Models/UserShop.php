@@ -204,4 +204,27 @@ class UserShop extends Model
 
     }
 
+    /**
+     * Deletes mapping file
+     * @return bool
+     */
+    public function deleteMappingFile()
+    {
+        $shopTopFolder = self::getShopTopPath();
+        if (file_exists($shopTopFolder."/domain-mapping/{$this->custom_domain}.txt")) {
+            unlink($shopTopFolder."/domain-mapping/{$this->custom_domain}.txt");
+        }
+        $this->custom_domain = '';
+        $this->custom_domain_confirmed = UserShop::CUSTOM_DOMAIN_NOT_CONFIRMED;
+        $this->save();
+
+        return true;
+    }
+
+    public static function getShopTopPath()
+    {
+        $envFilePath = dirname(base_path());
+        return $envFilePath . '/' . env('SHOP_FOLDER');
+    }
+
 }
