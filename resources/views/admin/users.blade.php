@@ -41,8 +41,16 @@
                 <td>{{$user->userShop->shop_name ?? ''}}</td>
                 <td>{{$user->has_payment ? 'Yes' : 'No'}}</td>
                 <td>{{$user->boards_created}}</td>
-                <td>{{$user->userShop->custom_domain}}</td>
-                <td>{{$user->userShop->custom_domain_confirmed ? 'Yes' : 'No'}}</td>
+                <td>
+                    @if($user->userShop)
+                        {{$user->userShop->custom_domain ?? 'No'}}
+                    @endif
+                </td>
+                <td>
+                    @if($user->userShop)
+                        {{$user->userShop->custom_domain_confirmed ? 'Yes' : 'No'}}
+                    @endif
+                </td>
                 <td>{{$user->created_at}}</td>
                 <td>
                     <a href="{{ route('user-view', $user->id) }}"><i class="fas fa-eye"></i></a>

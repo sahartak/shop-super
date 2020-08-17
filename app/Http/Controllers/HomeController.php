@@ -40,7 +40,7 @@ class HomeController extends Controller
         ]);
 
         $shopName = $request->get('shop_name');
-        $shopName = str_replace('.'.str_replace('http://', '',env("APP_URL")),'',$shopName);
+        $shopName = strtolower(str_replace('.'.str_replace('http://', '',env("APP_URL")),'',$shopName));
 
         $user = Auth::user();
         if ($shopName) {

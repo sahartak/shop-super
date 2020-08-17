@@ -81,7 +81,7 @@ class UserShop extends Model
             $replacements[$key.'='] = $key.'='.$value;
         }
         $envData = str_replace(array_keys($replacements), array_values($replacements), $envExample);
-        $envFile = $envFilePath.'/'.env('SHOP_FOLDER').'/env-files/.env-'.$this->shop_name;
+        $envFile = $envFilePath.'/'.env('SHOP_FOLDER').'/env-files/.env-'.strtolower($this->shop_name);
 
         return file_put_contents($envFile, $envData);
     }
@@ -137,8 +137,8 @@ class UserShop extends Model
         );
 
         $replacementsData = [
-            'SHOP_DOMAIN' => $this->shop_name,
-            'APP_URL' => $http.$this->shop_name.'.'.env('SHOP_DOMAIN'),
+            'SHOP_DOMAIN' => strtolower($this->shop_name),
+            'APP_URL' => $http.strtolower($this->shop_name).'.'.env('SHOP_DOMAIN'),
             'DB_DATABASE' => $dbName,
             'DB_USERNAME' => env('DB_USERNAME'),
             'DB_PASSWORD' => $dbPassword,
@@ -154,7 +154,7 @@ class UserShop extends Model
         if ($this->custom_domain) {
             return 'http://'.$this->custom_domain.'/dashboard';
         }
-        return 'http://'.$this->shop_name.'.'.env('SHOP_DOMAIN').'/dashboard';
+        return 'http://'.strtolower($this->shop_name).'.'.env('SHOP_DOMAIN').'/dashboard';
     }
 
     public static function is_valid_domain_name($domain_name)
