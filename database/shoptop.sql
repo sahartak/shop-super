@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 13, 2020 at 03:44 PM
+-- Generation Time: Aug 13, 2020 at 03:50 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.2.24
 
@@ -692,7 +692,7 @@ CREATE TABLE `settings` (
   `instalink` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `favicon` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `price` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `currency_id` int(5) DEFAULT NULL,
+  `currency_id` int(5) DEFAULT 1,
   `currency_type` int(5) DEFAULT NULL,
   `currency_position` int(5) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
